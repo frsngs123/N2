@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video with Unity Ads</title>
+    <script src="https://web-static.unityads.unity3d.com/prod/UnityAds.js"></script>
+    <style>
+        body { text-align: center; margin: 0; padding: 0; background: black; }
+        .container { display: flex; flex-direction: column; align-items: center; gap: 5px; padding-top: 5px; }
+        iframe { width: 90vw; height: 50vh; border: none; }
+        .ad-container { width: 90vw; height: 50px; background: gray; display: flex; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Banner Ads -->
+        <div class="ad-container" id="banner1"></div>
+        <div class="ad-container" id="banner2"></div>
+
+        <!-- YouTube Video -->
+        <iframe id="video-frame" allowfullscreen></iframe>
+
+        <!-- Bottom Banner Ads -->
+        <div class="ad-container" id="banner3"></div>
+        <div class="ad-container" id="banner4"></div>
+        <div class="ad-container" id="banner5"></div>
+        <div class="ad-container" id="banner6"></div>
+    </div>
+
+    <script>
+        // Your Video List
+        const videoIDs = ["CU9wj9cADII", "qB-SjDdJOn0"];
+
+        // Pick a Random Video
+        const randomVideo = videoIDs[Math.floor(Math.random() * videoIDs.length)];
+        document.getElementById("video-frame").src = `https://www.youtube.com/embed/${randomVideo}?autoplay=1&controls=1`;
+
+        // Initialize Unity Ads
+        function showBannerAd(bannerID, adPlacementID) {
+            if (typeof unityads !== "undefined") {
+                unityads.initialize("5814193", false);
+                unityads.show(adPlacementID);
+            } else {
+                document.getElementById(bannerID).innerHTML = `<p style="color:white;">Banner Ad: ${adPlacementID}</p>`;
+            }
+        }
+
+        // Load 6 Banner Ads
+        setTimeout(() => {
+            showBannerAd("banner1", "ban1");
+            showBannerAd("banner2", "ban2");
+            showBannerAd("banner3", "ban3");
+            showBannerAd("banner4", "ban4");
+            showBannerAd("banner5", "ban5");
+            showBannerAd("banner6", "ban6");
+        }, 2000); // Delay for better ad load
+    </script>
+
+</body>
+</html>
+
